@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cinéma — Movie Search</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="grain"></div>
+
+  <header class="site-header">
+    <div class="logo">Cinéma</div>
+    <p class="tagline">Discover any film, any era.</p>
+  </header>
+
+  <main>
+    <section class="search-section">
+      <div class="search-bar-wrapper">
+        <div class="search-inner">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search for a title…"
+            autocomplete="off"
+            aria-label="Movie search"
+          />
+          <button id="searchBtn" aria-label="Search">
+            <span>Search</span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="filters-row">
+          <div class="filter-group">
+            <label for="typeFilter">Type</label>
+            <select id="typeFilter">
+              <option value="">All</option>
+              <option value="movie">Movie</option>
+              <option value="series">Series</option>
+              <option value="episode">Episode</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="yearFilter">Year</label>
+            <input type="number" id="yearFilter" placeholder="e.g. 2023" min="1888" max="2099"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="results-section" id="resultsSection" aria-live="polite">
+      <!-- State: empty -->
+      <div class="state-empty" id="stateEmpty">
+        <div class="empty-visual">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" fill="none">
+            <rect x="10" y="18" width="60" height="44" rx="3" stroke="currentColor" stroke-width="1.5"/>
+            <line x1="10" y1="28" x2="70" y2="28" stroke="currentColor" stroke-width="1.5"/>
+            <circle cx="20" cy="23" r="2" fill="currentColor"/>
+            <circle cx="27" cy="23" r="2" fill="currentColor"/>
+            <circle cx="34" cy="23" r="2" fill="currentColor"/>
+            <rect x="22" y="36" width="36" height="18" rx="2" stroke="currentColor" stroke-width="1.2"/>
+            <polyline points="34,42 34,50 44,46" fill="currentColor" stroke="none"/>
+          </svg>
+        </div>
+        <p>Type a title above to begin your search.</p>
+      </div>
+
+      <!-- State: loading -->
+      <div class="state-loading hidden" id="stateLoading">
+        <div class="spinner"></div>
+        <p>Searching the archives…</p>
+      </div>
+
+      <!-- State: error -->
+      <div class="state-error hidden" id="stateError">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <p id="errorMsg">Something went wrong.</p>
+      </div>
+
+      <!-- State: results grid -->
+      <div class="state-results hidden" id="stateResults">
+        <div class="results-meta">
+          <span id="resultCount"></span>
+          <span id="resultQuery"></span>
+        </div>
+        <div class="movie-grid" id="movieGrid"></div>
+        <div class="pagination" id="pagination"></div>
+      </div>
+
+      <!-- State: detail view -->
+      <div class="state-detail hidden" id="stateDetail">
+        <button class="back-btn" id="backBtn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Back to results
+        </button>
+        <div class="detail-card" id="detailCard"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Powered by <a href="https://www.omdbapi.com" target="_blank" rel="noopener">OMDb API</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
